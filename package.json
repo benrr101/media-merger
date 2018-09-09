@@ -1,0 +1,30 @@
+{
+  "name": "media-merger",
+  "version": "0.1.0",
+  "description": "Electron app for applying metadata about tv shows and movies scraped from the internet in a more \"I know what I'm doing\" manner.",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benrr101/media-merger.git"
+  },
+  "author": "Benjamin Russell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benrr101/media-merger/issues"
+  },
+  "homepage": "https://github.com/benrr101/media-merger#readme",
+  "dependencies": {
+    "knockout": "^3.4.2",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "electron": "^2.0.8",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  }
+}
