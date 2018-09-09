@@ -9,7 +9,7 @@ app.on("ready", () => {
         height: 600,
         width:800
     });
-    mainWindow.loadFile(path.join(__dirname, 'index.html'));
+    mainWindow.loadFile(path.join(__dirname, 'views/index.html'));
 
     // Add event listener for when window is closed
     mainWindow.on('closed', () => {
