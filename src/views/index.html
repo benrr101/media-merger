@@ -5,19 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Media Merger</title>
 
-    <link rel="stylesheet" href="../../node_modules/foundation-sites/dist/css/foundation.min.css" />
+    <link rel="stylesheet" href="index.css"/>
 </head>
 <body>
-<h1>Hello World</h1>
+<div id="panel-left" class="split split-horizontal">
+    Left
+</div>
+<div id="panel-center" class="split split-horizontal">
+    <div id="panel-center-top" class="split">Top</div>
+    <div id="panel-center-bottom" class="split">Bottom</div>
+</div>
+<div id="panel-right" class="split split-horizontal">
+    Right
+</div>
 
 <script type="text/javascript">if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../../node_modules/what-input/dist/what-input.min.js"></script>
 <script src="../../node_modules/foundation-sites/dist/js/foundation.min.js"></script>
+<script src="../../node_modules/split.js/split.min.js"></script>
 <script>if (window.module) module = window.module;</script>
 
 <script type="text/javascript">
     $(document).foundation();
+    $(document).ready(function() {
+        Split(['#panel-left', '#panel-center', '#panel-right'], {
+            sizes: [25, 50, 25],
+            direction: 'horizontal'
+        });
+        Split(['#panel-center-top', '#panel-center-bottom'], {
+            sizes: [50, 50],
+            direction: 'vertical'
+        });
+    });
 </script>
 
 </body>
