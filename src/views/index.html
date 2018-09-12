@@ -5,18 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Media Merger</title>
 
-    <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" href="styles/split.css"/>
 </head>
 <body>
 <div id="panel-left" class="split split-horizontal">
-    Left
+    <partial src="_panel-left.html"></partial>
 </div>
 <div id="panel-center" class="split split-horizontal">
-    <div id="panel-center-top" class="split">Top</div>
-    <div id="panel-center-bottom" class="split">Bottom</div>
+    <div id="panel-center-top" class="split">
+        <partial src="_panel-center-top.html"></partial>
+    </div>
+    <div id="panel-center-bottom" class="split">
+        <partial src="_panel-center-bottom.html"></partial>
+    </div>
 </div>
 <div id="panel-right" class="split split-horizontal">
-    Right
+    <partial src="_panel-right.html"></partial>
 </div>
 
 <script type="text/javascript">if (typeof module === 'object') {window.module = module; module = undefined;}</script>
