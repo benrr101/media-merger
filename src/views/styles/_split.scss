@@ -1,0 +1,27 @@
+/**
+ * SPLIT.JS FUNCTIONALITY ==================================================
+ */
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.split {
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden
+}
+.gutter.gutter-horizontal {
+    cursor: w-resize;
+}
+.gutter.gutter-vertical {
+    cursor: n-resize;
+}
+.split.split-horizontal, .gutter.gutter-horizontal {
+    height: 100%;
+    float: left;
+}
+

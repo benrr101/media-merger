@@ -5,41 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Media Merger</title>
 
-    <link rel="stylesheet" href="styles/split.css"/>
+    <link rel="stylesheet" href="styles/index.css"/>
 </head>
 <body>
-<div id="panel-left" class="split split-horizontal">
+
+<partial src="_toolbar.html"></partial>
+<div id="panel-container">
     <partial src="_panel-left.html"></partial>
-</div>
-<div id="panel-center" class="split split-horizontal">
-    <div id="panel-center-top" class="split">
-        <partial src="_panel-center-top.html"></partial>
-    </div>
-    <div id="panel-center-bottom" class="split">
-        <partial src="_panel-center-bottom.html"></partial>
-    </div>
-</div>
-<div id="panel-right" class="split split-horizontal">
+    <partial src="_panel-center.html"></partial>
     <partial src="_panel-right.html"></partial>
 </div>
 
 <script type="text/javascript">if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="../../node_modules/what-input/dist/what-input.min.js"></script>
-<script src="../../node_modules/foundation-sites/dist/js/foundation.min.js"></script>
 <script src="../../node_modules/split.js/split.min.js"></script>
 <script>if (window.module) module = window.module;</script>
 
 <script type="text/javascript">
-    $(document).foundation();
     $(document).ready(function() {
         Split(['#panel-left', '#panel-center', '#panel-right'], {
             sizes: [25, 50, 25],
-            direction: 'horizontal'
+            direction: 'horizontal',
+            gutterSize: 5
         });
         Split(['#panel-center-top', '#panel-center-bottom'], {
             sizes: [50, 50],
-            direction: 'vertical'
+            direction: 'vertical',
+            gutterSize: 5
         });
     });
 </script>

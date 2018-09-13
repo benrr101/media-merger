@@ -1,0 +1,62 @@
+/*
+ * PANELS ==================================================================
+ */
+@import '_colors.scss';
+
+/* CONSTANTS =============================================================== */
+$toolbar-width: 50px;
+
+/* PANELS ================================================================== */
+#panel-container {
+    float: left;
+    height: 100%;
+    width: calc(100% - #{$toolbar-width});
+}
+
+#panel-center {
+    background-color: $color-content-background;
+    color: $color-content-foreground;
+}
+
+#panel-left, #panel-right {
+    padding-left: 16px;
+    padding-right: 10px;
+
+    background-color: $color-sidebar-background;
+    color: $color-sidebar-foreground;
+
+    & header {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        line-height: 35px;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+/* TOOLBAR ================================================================= */
+#toolbar {
+    float: left;
+    height: 100%;
+    width: $toolbar-width;
+
+    background-color: $color-toolbar-background;
+
+    & .item {
+        height: 50px;
+        width: 50px;
+        text-align: center;
+        vertical-align: center;
+
+        color: $color-toolbar-foreground-inactive;
+
+        &:hover, &.active {
+            color: $color-toolbar-foreground-active;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
