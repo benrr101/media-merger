@@ -24,6 +24,4 @@ gulp.task('build:typescript', () => {
         .pipe(gulp.dest(dest));
 });
 
-gulp.task('build:re')
-
 gulp.task('build', ['build:css', 'build:html', 'build:typescript']);

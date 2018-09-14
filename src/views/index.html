@@ -10,11 +10,9 @@
 <body>
 
 <partial src="_toolbar.html"></partial>
-<div id="panel-container">
-    <partial src="_panel-left.html"></partial>
-    <partial src="_panel-center.html"></partial>
-    <partial src="_panel-right.html"></partial>
-</div>
+<partial src="_panel-left.html"></partial>
+<partial src="_panel-center.html"></partial>
+<partial src="_panel-right.html"></partial>
 
 <script type="text/javascript">if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
@@ -22,11 +20,17 @@
 <script>if (window.module) module = window.module;</script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(() => {
         Split(['#panel-left', '#panel-center', '#panel-right'], {
             sizes: [25, 50, 25],
             direction: 'horizontal',
-            gutterSize: 5
+            gutterSize: 5,
+            elementStyle: (dimension, size, gutterSize) => {
+                return {'flex-basis': `calc(${size}% - ${gutterSize}px`};
+            },
+            gutterStyle: (dimension, gutterSize) => {
+                return {'flex-basis': `${gutterSize}px`}
+            }
         });
         Split(['#panel-center-top', '#panel-center-bottom'], {
             sizes: [50, 50],

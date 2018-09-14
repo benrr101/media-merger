@@ -15,6 +15,7 @@ body {
     overflow-x: hidden
 }
 .gutter.gutter-horizontal {
+    margin-left: -5px;
     cursor: w-resize;
 }
 .gutter.gutter-vertical {
@@ -22,6 +23,5 @@ body {
 }
 .split.split-horizontal, .gutter.gutter-horizontal {
     height: 100%;
-    float: left;
 }
 

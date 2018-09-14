@@ -11,19 +11,17 @@
     
     <body>
         <div id="toolbar" class="toolbar">
-            <div class="item">a</div>
+            <div id="toolbar-item-settings" class="item"></div>
         </div>
-        <div id="panel-container">
-            <div id="panel-left" class="split split-horizontal sidebar">
-                <header>File List</header>
-            </div>
-            <div id="panel-center" class="split split-horizontal">
-                <div id="panel-center-top" class="split">Metadata from scraped source</div>
-                <div id="panel-center-bottom" class="split">Metadata from files</div>
-            </div>
-            <div id="panel-right" class="split split-horizontal sidebar">
-                <header>Scraper list</header>
-            </div>
+        <div id="panel-left" class="split split-horizontal sidebar">
+            <header>File List</header>
+        </div>
+        <div id="panel-center" class="split split-horizontal">
+            <div id="panel-center-top" class="split">Metadata from scraped source</div>
+            <div id="panel-center-bottom" class="split">Metadata from files</div>
+        </div>
+        <div id="panel-right" class="split split-horizontal sidebar">
+            <header>Scraper list</header>
         </div>
         <script type="text/javascript">
             if (typeof module === 'object') {window.module = module; module = undefined;}
@@ -34,11 +32,17 @@
             if (window.module) module = window.module;
         </script>
         <script type="text/javascript">
-            $(document).ready(function() {
+            $(document).ready(() => {
                 Split(['#panel-left', '#panel-center', '#panel-right'], {
                     sizes: [25, 50, 25],
                     direction: 'horizontal',
-                    gutterSize: 5
+                    gutterSize: 5,
+                    elementStyle: (dimension, size, gutterSize) => {
+                        return {'flex-basis': `calc(${size}% - ${gutterSize}px`};
+                    },
+                    gutterStyle: (dimension, gutterSize) => {
+                        return {'flex-basis': `${gutterSize}px`}
+                    }
                 });
                 Split(['#panel-center-top', '#panel-center-bottom'], {
                     sizes: [50, 50],

@@ -7,10 +7,9 @@
 $toolbar-width: 50px;
 
 /* PANELS ================================================================== */
-#panel-container {
-    float: left;
-    height: 100%;
-    width: calc(100% - #{$toolbar-width});
+body {
+    display: flex;
+    flex-direction: row;
 }
 
 #panel-center {
@@ -37,7 +36,6 @@ $toolbar-width: 50px;
 
 /* TOOLBAR ================================================================= */
 #toolbar {
-    float: left;
     height: 100%;
     width: $toolbar-width;
 
@@ -49,14 +47,19 @@ $toolbar-width: 50px;
         text-align: center;
         vertical-align: center;
 
-        color: $color-toolbar-foreground-inactive;
+        background-color: $color-toolbar-foreground-inactive;
 
         &:hover, &.active {
-            color: $color-toolbar-foreground-active;
+            background-color: $color-toolbar-foreground-active;
         }
 
         &:hover {
             cursor: pointer;
         }
     }
+}
+
+#toolbar-item-settings {
+    -webkit-mask-size: 22px;
+    -webkit-mask: url("../../../resources/ic_settings_24px.svg") no-repeat 50% 50%;
 }
