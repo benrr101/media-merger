@@ -25,12 +25,18 @@ body {
     color: $color-sidebar-foreground;
 
     & header {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 16px;
+        padding-right: 16px;
 
         line-height: 35px;
-        font-size: 13px;
-        text-transform: uppercase;
+
+        & h1 {
+            margin: 0;
+
+            font-size: 13px;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
     }
 }
 
