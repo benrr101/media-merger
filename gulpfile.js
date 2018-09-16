@@ -3,6 +3,7 @@ let htmlPartial = require('gulp-html-partial');
 let runElectron = require('gulp-run-electron');
 let sass = require('gulp-sass');
 let ts = require('gulp-typescript');
+let tsNameOf = require('ts-nameof');
 
 const dest = 'dist';
 
@@ -22,6 +23,7 @@ gulp.task('build:html', () => {
 let tsProject = ts.createProject('tsconfig.json');
 gulp.task('build:typescript', () => {
     return gulp.src('src/**/*.ts')
+        .pipe(tsNameOf.stream())
         .pipe(tsProject())
         .pipe(gulp.dest(dest));
 });
