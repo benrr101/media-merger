@@ -1,7 +1,6 @@
 import * as uuid from "uuid/v4";
 import {ipcRenderer} from "electron";
 
-import Guarded from "./guarded";
 import {IIpcMessage, IIpcResponse} from "./ipcWrapperMessages";
 
 /**
@@ -9,16 +8,14 @@ import {IIpcMessage, IIpcResponse} from "./ipcWrapperMessages";
  */
 export interface IIpcRendererWrapper {
     /**
-     * Sends an message to the main process via IPC. Asynchronously waits for message
+     * Sends a message to the main process via IPC. Asynchronously waits for response message.
      * @template {TMessage} Type of the message parameters
      * @template {TResponse} Expected type of the response
      * @param event {string} Name of the event to send
-     * @param param {TMessage} Parameter to send in the mssage
+     * @param param {TMessage} Parameter to send in the message
      * @return {Promise<TResponse>}
      */
-    sendAsync<TMessage extends Guarded<TMessage>, TResponse extends Guarded<TResponse>>(
-        event: string, param: TMessage
-    ): Promise<TResponse>;
+    sendAsync<TMessage, TResponse>(event: string, param: TMessage): Promise<TResponse>;
 }
 
 /**
@@ -28,9 +25,7 @@ export class IpcRendererWrapper implements IIpcRendererWrapper {
     /**
      * @inheritDoc
      */
-    public sendAsync<TMessage extends Guarded<TMessage>, TResponse extends Guarded<TResponse>>(
-        event: string, param: TMessage
-    ): Promise<TResponse> {
+    public sendAsync<TMessage, TResponse>(event: string, param: TMessage): Promise<TResponse> {
         return new Promise<TResponse>((resolve, reject) => {
             // UUID to identify this specific message
             const messageUuid = uuid();
@@ -41,7 +36,7 @@ export class IpcRendererWrapper implements IIpcRendererWrapper {
                 if (m.success) {
                     resolve(m.response);
                 } else {
-                    reject();
+                    reject(m.error);
                 }
             });
 

@@ -1,10 +1,8 @@
-import Guarded from "./guarded";
-
 /**
  * Message to send over the IPC channel
  * @template {TParam} Type of the message's param
  */
-export interface IIpcMessage<TParam extends Guarded<TParam>> {
+export interface IIpcMessage<TParam> {
     /**
      * GUID for the message, used to uniquely process message responses
      */
@@ -18,9 +16,9 @@ export interface IIpcMessage<TParam extends Guarded<TParam>> {
 
 /**
  * Message to receive from the IPC channel
- * @template {TResponse} Type of the response's param
+ * @template {TResponse} Type of the response's param, must extend Guarded for runtime type safety
  */
-export interface IIpcResponse<TResponse extends Guarded<TResponse>> {
+export interface IIpcResponse<TResponse> {
     /**
      * If an error occurred during the processing of the message, this property will be set with
      * the error that occurred.
