@@ -11,7 +11,7 @@
     
     <body>
         <div id="toolbar" class="toolbar">
-            <div id="toolbar-item-settings" class="item"></div>
+            <div id="toolbar-item-settings" class="item" data-bind="click: handleAddFolder"></div>
         </div>
         <div id="panel-left" class="split split-horizontal sidebar">
             <header>
@@ -31,32 +31,13 @@
         </div>
         <script type="text/javascript">
             if (typeof module === 'object') {window.module = module; module = undefined;}
-        </script>
-        <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="../../node_modules/split.js/split.min.js"></script>
-        <script>
+            require("../renderer");
             if (window.module) module = window.module;
         </script>
-        <script type="text/javascript">
-            $(document).ready(() => {
-                Split(['#panel-left', '#panel-center', '#panel-right'], {
-                    sizes: [25, 50, 25],
-                    direction: 'horizontal',
-                    gutterSize: 5,
-                    elementStyle: (dimension, size, gutterSize) => {
-                        return {'flex-basis': `calc(${size}% - ${gutterSize}px`};
-                    },
-                    gutterStyle: (dimension, gutterSize) => {
-                        return {'flex-basis': `${gutterSize}px`}
-                    }
-                });
-                Split(['#panel-center-top', '#panel-center-bottom'], {
-                    sizes: [50, 50],
-                    direction: 'vertical',
-                    gutterSize: 5
-                });
-            });
+        <script type="type/javascript">
+            require
         </script>
+        <script></script>
     </body>
 
 </html>

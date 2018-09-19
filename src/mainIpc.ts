@@ -15,10 +15,6 @@ export default class MainIpc {
         });
     }
 
-    public static createDefault(): MainIpc {
-        return new MainIpc(new IpcMainWrapper());
-    }
-
     private handleSelectDirectoryCall(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             dialog.showOpenDialog({properties: ["openDirectory"]}, (filePaths) => {

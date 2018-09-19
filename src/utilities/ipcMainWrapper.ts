@@ -1,4 +1,4 @@
-import {Event, ipcMain} from "electron";
+import {Event, IpcMain} from "electron";
 
 import {IIpcMessage, IIpcResponse} from "./ipcWrapperMessages";
 
@@ -29,11 +29,17 @@ export interface IIpcMainWrapper {
  * Standard implementation of IIpcRendererWrapper, uses the electron IPC channel
  */
 export class IpcMainWrapper implements IIpcMainWrapper {
+    private _ipcMain: IpcMain;
+
+    public constructor(ipc: IpcMain) {
+        this._ipcMain = ipc;
+    }
+
     /**
      * @inheritDoc
      */
     public on<TMessage, TResponse>(eventName: string, handler: (param: TMessage) => TResponse): void {
-        ipcMain.on(eventName, (event: Event, message: IIpcMessage<TMessage>) => {
+        this._ipcMain.on(eventName, (event: Event, message: IIpcMessage<TMessage>) => {
             let responseMessage: IIpcResponse<TResponse>;
             try {
                 // Call the handler and return the results
@@ -59,7 +65,7 @@ export class IpcMainWrapper implements IIpcMainWrapper {
      * @inheritDoc
      */
     public onAsync<TMessage, TResponse>(eventName: string, handler: (param: TMessage) => Promise<TResponse>): void {
-        ipcMain.on(eventName, (event: Event, message: IIpcMessage<TMessage>) => {
+        this._ipcMain.on(eventName, (event: Event, message: IIpcMessage<TMessage>) => {
             // Call the handle and return the results
             handler(message.param)
                 .then(

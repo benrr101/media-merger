@@ -12,10 +12,16 @@ export default class RootViewModel {
 
     // CONSTRUCTORS
     public constructor(electronApi: IElectronApiManager) {
+        // Models
         this._electronApi = electronApi;
     }
 
     public static createDefault(): RootViewModel {
         return new RootViewModel(ElectronApiManager.createDefault());
+    }
+
+    // EVENT HANDLERS //////////////////////////////////////////////////////
+    public handleAddFolder = async () => {
+        console.log(await this._electronApi.getDirectoryPath());
     }
 }

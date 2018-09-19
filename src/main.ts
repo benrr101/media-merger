@@ -1,5 +1,8 @@
-import {app, BrowserWindow} from "electron";
+import {app, dialog, ipcMain, BrowserWindow} from "electron";
 import * as path from "path";
+
+import MainIpc from "./mainIpc";
+import {IpcMainWrapper} from "./utilities/ipcMainWrapper";
 
 let mainWindow: Electron.BrowserWindow;
 
@@ -21,3 +24,9 @@ app.on("window-all-closed", () => {
     // Quit the program
     app.quit();
 });
+
+// IPC /////////////////////////////////////////////////////////////////////
+const ipcWrapper = new IpcMainWrapper(ipcMain);
+
+let mainIpc: MainIpc;
+mainIpc = new MainIpc(ipcWrapper);

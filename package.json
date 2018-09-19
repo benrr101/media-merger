@@ -6,7 +6,7 @@
     "build": "gulp build",
     "watch": "gulp watch",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "start": "electron ./dist/main.js"
+    "start": "electron ./dist/main.js --inspect"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,12 @@
     "electron": "^2.0.9",
     "jquery": "^3.3.1",
     "knockout": "^3.4.2",
-    "split.js": "^1.3.5",
+    "split.js": "nathancahill/Split.js#master",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/jquery": "^3.3.9",
+    "@types/knockout": "^3.4.59",
     "@types/uuid": "^3.4.4",
     "gulp": "^3.9.1",
     "gulp-cli": "^2.0.1",
