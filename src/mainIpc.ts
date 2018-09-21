@@ -16,9 +16,13 @@ export default class MainIpc {
     }
 
     private handleSelectDirectoryCall(): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
+        return new Promise<string>((resolve) => {
             dialog.showOpenDialog({properties: ["openDirectory"]}, (filePaths) => {
-                resolve(filePaths[0]);
+                if (!filePaths) {
+                    resolve(undefined);
+                } else {
+                    resolve(filePaths[0]);
+                }
             });
         });
     }

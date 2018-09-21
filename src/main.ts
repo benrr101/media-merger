@@ -6,6 +6,7 @@ import {IpcMainWrapper} from "./utilities/ipcMainWrapper";
 
 let mainWindow: Electron.BrowserWindow;
 
+console.log("starting...");
 app.on("ready", () => {
     // Create browser window
     mainWindow = new BrowserWindow({

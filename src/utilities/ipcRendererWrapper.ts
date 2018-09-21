@@ -31,7 +31,7 @@ export class IpcRendererWrapper implements IIpcRendererWrapper {
             const messageUuid = uuid();
 
             // Create a handler for the response
-            const responseEvent = `${event}-${uuid}-response`;
+            const responseEvent = `${event}-${messageUuid}-response`;
             ipcRenderer.once(responseEvent, (e: string, m: IIpcResponse<TResponse>) => {
                 if (m.success) {
                     resolve(m.response);

@@ -2,6 +2,7 @@ let gulp = require('gulp');
 let htmlPartial = require('gulp-html-partial');
 let runElectron = require('gulp-run-electron');
 let sass = require('gulp-sass');
+let sourcemaps = require('gulp-sourcemaps');
 let ts = require('gulp-typescript');
 
 const dest = 'dist';
@@ -22,7 +23,9 @@ gulp.task('build:html', () => {
 let tsProject = ts.createProject('tsconfig.json');
 gulp.task('build:typescript', () => {
     return gulp.src('src/**/*.ts')
+        .pipe(sourcemaps.init())
         .pipe(tsProject())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(dest));
 });
 

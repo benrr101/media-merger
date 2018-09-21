@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/benrr101/media-merger#readme",
   "dependencies": {
-    "electron": "^2.0.9",
+    "electron": "2.0.0",
     "jquery": "^3.3.1",
     "knockout": "^3.4.2",
     "split.js": "nathancahill/Split.js#master",
@@ -34,6 +34,7 @@
     "gulp-run-electron": "^3.0.2",
     "gulp-html-partial": "^1.0.1",
     "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
     "gulp-typescript": "^5.0.0-alpha.3",
     "tslint": "^5.11.0",
     "typescript": "^3.0.3"
