@@ -6,7 +6,7 @@ export interface IElectronApiManager {
 }
 
 export class ElectronApiManager implements IElectronApiManager {
-    private _ipc: IIpcRendererWrapper;
+    private readonly _ipc: IIpcRendererWrapper;
 
     constructor(ipc: IIpcRendererWrapper) {
         this._ipc = ipc;
