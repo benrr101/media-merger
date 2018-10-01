@@ -1,17 +1,17 @@
 import * as ko from "knockout";
 
-import FileTreeViewModel from "./fileTreeViewModel";
+import FileTreeFolderViewModel from "./fileTreeFolderViewModel";
 import {IFileManager} from "../models/fileManager";
 import {IElectronApiManager} from "../models/electronApiManager";
 
 
 export default class FileBrowserViewModel {
     // MODELS //////////////////////////////////////////////////////////////
-    private _electronApi: IElectronApiManager;
-    private _fileManager: IFileManager;
+    private readonly _fileManager: IFileManager;
+    private readonly _electronApi: IElectronApiManager;
 
     // CHILD VIEW MODELS ///////////////////////////////////////////////////
-    public fileTrees: KnockoutObservableArray<FileTreeViewModel>;
+    public fileTrees: KnockoutObservableArray<FileTreeFolderViewModel>;
 
     // OBSERVABLES /////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@ export default class FileBrowserViewModel {
         this._electronApi = electronApi;
         this._fileManager = fileManager;
 
-        this.fileTrees = ko.observableArray<FileTreeViewModel>([]);
+        this.fileTrees = ko.observableArray<FileTreeFolderViewModel>([]);
     }
 
     // EVENT HANDLERS //////////////////////////////////////////////////////
@@ -28,13 +28,7 @@ export default class FileBrowserViewModel {
         try {
             // Get a directory to read files from it
             const folderToAdd = await this._electronApi.getDirectoryPath();
-            const fileTree = await this._fileManager.getFileTree(folderToAdd, true);
-            if (!fileTree) {
-                return;
-            }
-
-            // TEMP: Build a file tree view model from a file tree
-            this.fileTrees.push(new FileTreeViewModel(fileTree));
+            this.fileTrees.push(new FileTreeFolderViewModel(this._fileManager, folderToAdd));
         } catch (e) {
             // TODO: Display error
             console.error(e);

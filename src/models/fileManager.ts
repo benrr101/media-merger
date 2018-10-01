@@ -6,31 +6,27 @@ const readdir = util.promisify(fs.readdir);
 const stat = util.promisify(fs.stat);
 
 export interface IFileManager {
-    getFileTree(folderPath: string, recursive: boolean): Promise<FileTree>;
+    getFolderContents(folderPath: string): Promise<FolderContents>;
 }
 
 export class FileManager implements IFileManager {
     // METHODS /////////////////////////////////////////////////////////////
-    public async getFileTree(folderPath: string, recursive: boolean): Promise<FileTree> {
+    public async getFolderContents(folderPath: string): Promise<FolderContents> {
         // Read the items in the directory
         const fileList = await readdir(folderPath);
         if (!fileList) {
            return undefined;
         }
 
-        const result = new FileTree(folderPath);
+        const result = new FolderContents(path.basename(folderPath));
         for (const fileName of fileList) {
             const filePath = path.join(folderPath, fileName);
 
             const stats = await stat(filePath);
             if (stats.isDirectory()) {
-                if (recursive) {
-                    // Recurse
-                    result.items.push(await this.getFileTree(filePath, recursive));
-                }
+                result.folders.push(filePath);
             } else {
-                // Add the file directly to the tree
-                result.items.push(filePath);
+                result.files.push(filePath);
             }
         }
 
@@ -38,12 +34,15 @@ export class FileManager implements IFileManager {
     }
 }
 
-export class FileTree {
+export class FolderContents {
+    public files: string[];
+    public folders: string[];
     public name: string;
-    public items: Array<FileTree|string>;
 
     public constructor(name: string) {
         this.name = name;
-        this.items = [];
+
+        this.files = [];
+        this.folders = [];
     }
 }
