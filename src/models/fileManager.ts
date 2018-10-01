@@ -14,6 +14,9 @@ export class FileManager implements IFileManager {
     public async getFileTree(folderPath: string, recursive: boolean): Promise<FileTree> {
         // Read the items in the directory
         const fileList = await readdir(folderPath);
+        if (!fileList) {
+           return undefined;
+        }
 
         const result = new FileTree(folderPath);
         for (const fileName of fileList) {

@@ -18,24 +18,76 @@ body {
 }
 
 #panel-left, #panel-right {
-    padding-left: 16px;
-    padding-right: 10px;
-
     background-color: $color-sidebar-background;
     color: $color-sidebar-foreground;
 
     & header {
-        padding-left: 10px;
+        display: flex;
+        padding-left: 16px;
         padding-right: 10px;
 
-        line-height: 35px;
+        $header-line-height: 35px;
+        line-height: $header-line-height;
 
         & h1 {
             margin: 0;
 
-            font-size: 13px;
+            font-size: 12px;
             font-weight: normal;
             text-transform: uppercase;
+        }
+
+        & .actions {
+            flex: 1;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+
+            & > div {
+                height: $header-line-height;
+                width: 16px;
+
+                background-color: $color-toolbar-foreground-inactive;
+
+                &:hover {
+                    background-color: $color-toolbar-foreground-active;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    & .section-header {
+        display: flex;
+
+        $section-header-line-height: 22px;
+        line-height: $section-header-line-height;
+
+        background-color: $color-toolbar-background;
+
+        & h2 {
+            margin: 0;
+
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        & .chevron {
+            width: 16px;
+            background-color: $color-toolbar-foreground-active;
+            cursor: pointer;
+
+            &.collapsed {
+                -webkit-mask: url("../../../resources/ic_expand_more_18px.svg") no-repeat 50% 50%;
+                -webkit-mask-size: 16px;
+            }
+
+            &.expanded {
+                -webkit-mask: url("../../../resources/ic_expand_less_18px.svg") no-repeat 50% 50%;
+                -webkit-mask-size: 16px;
+            }
         }
     }
 }
@@ -66,6 +118,6 @@ body {
 }
 
 #toolbar-item-settings {
-    -webkit-mask-size: 22px;
     -webkit-mask: url("../../../resources/ic_settings_24px.svg") no-repeat 50% 50%;
+    -webkit-mask-size: 22px;
 }

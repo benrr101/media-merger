@@ -1,9 +1,16 @@
 <div id="panel-left" class="split split-horizontal sidebar" data-bind="with: fileBrowserViewModel">
     <header>
         <h1>File List</h1>
-        <div data-bind="click: handleAddFolder">click here</div>
+        <div class="actions">
+            <div class="action-item add-folder" data-bind="click: handleAddFolder"></div>
+        </div>
     </header>
     <!-- ko foreach: fileTrees -->
-    <h2 data-bind="text: name"></h2>
+    <div>
+        <div class="section-header">
+            <div class="chevron" data-bind="css: {expanded: isExpanded, collapsed: !isExpanded()}, click: handleChevronClick"></div>
+            <h2 data-bind="text: name"></h2>
+        </div>
+    </div>
     <!-- /ko -->
 </div>

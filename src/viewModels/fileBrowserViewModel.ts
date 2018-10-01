@@ -29,6 +29,9 @@ export default class FileBrowserViewModel {
             // Get a directory to read files from it
             const folderToAdd = await this._electronApi.getDirectoryPath();
             const fileTree = await this._fileManager.getFileTree(folderToAdd, true);
+            if (!fileTree) {
+                return;
+            }
 
             // TEMP: Build a file tree view model from a file tree
             this.fileTrees.push(new FileTreeViewModel(fileTree));
