@@ -28,7 +28,9 @@ export default class FileBrowserViewModel {
         try {
             // Get a directory to read files from it
             const folderToAdd = await this._electronApi.getDirectoryPath();
-            this.fileTrees.push(new FileTreeFolderViewModel(this._fileManager, folderToAdd));
+            const folderViewModel = new FileTreeFolderViewModel(this._fileManager, folderToAdd);
+            this.fileTrees.push(folderViewModel);
+            folderViewModel.init();
         } catch (e) {
             // TODO: Display error
             console.error(e);

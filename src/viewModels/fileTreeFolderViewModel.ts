@@ -10,6 +10,7 @@ export default class FileTreeFolderViewModel {
     private readonly _folderPath: string;
 
     // CHILD VIEWMODELS ////////////////////////////////////////////////////
+    public folders: KnockoutObservableArray<FileTreeFolderViewModel>;
 
     // OBSERVABLES /////////////////////////////////////////////////////////
     public displayName: KnockoutObservable<string>;
@@ -17,25 +18,33 @@ export default class FileTreeFolderViewModel {
 
     // CONSTRUCTORS ////////////////////////////////////////////////////////
     public constructor(fileManager: IFileManager, folderPath: string) {
-        // Store the most basic data and kick off the init process
+        // Store the most basic data
         this._fileManager = fileManager;
         this._folderPath = folderPath;
 
-        this.displayName = ko.observable<string>("Loading...");
-        this.isExpanded = ko.observable<boolean>(true);
+        this.folders = ko.observableArray([]);
 
-        this._init();
+        this.displayName = ko.observable<string>("Loading...");
+        this.isExpanded = ko.observable<boolean>(false);
+    }
+
+    public init = async (): Promise<void> => {
+        // Get all files and folders for this directory
+        const folderContents = await this._fileManager.getFolderContents(this._folderPath);
+
+        // Create new VMs for the folders in this folder
+        const folders = folderContents.folders.map((folder) => new FileTreeFolderViewModel(this._fileManager, folder));
+        const folderPromises = folders.map((folder) => folder.init());
+        this.folders(folders);
+
+        // When everything is done, update the status
+        await Promise.all(folderPromises);
+        this.displayName(folderContents.name);
+        this.isExpanded(true);
     }
 
     // EVENT HANDLERS //////////////////////////////////////////////////////
     public handleChevronClick = () => {
         this.isExpanded(!this.isExpanded());
-    }
-
-    // PRIVATE HELPERS /////////////////////////////////////////////////////
-    private _init = async (): Promise<void> => {
-        // Get all files and folders for this directory
-        const folderContents = await this._fileManager.getFolderContents(this._folderPath);
-        this.displayName(folderContents.name);
     }
 }

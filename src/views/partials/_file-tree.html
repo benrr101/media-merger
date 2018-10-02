@@ -1,3 +1,11 @@
 <script type="text/html" id="file-tree-section">
-    <div>ccccc</div>
+    <div class="section-indented" data-bind="css: {expanded: isExpanded, collapsed: !isExpanded()}">
+        <!-- ko foreach: folders -->
+        <div class="header">
+            <div class="chevron" data-bind="click: handleChevronClick, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
+            <h3 data-bind="text: displayName"></h3>
+        </div>
+        <!-- ko template: {name: 'file-tree-section', data: $data} --><!-- /ko -->
+        <!-- /ko -->
+    </div>
 </script>

@@ -17,35 +17,54 @@ body {
     color: $color-content-foreground;
 }
 
+%panel-child {
+    padding-left: 16px;
+    padding-right: 10px;
+}
+
+%panel-header {
+    margin: 0;
+    font-size: inherit;
+}
+
 #panel-left, #panel-right {
     background-color: $color-sidebar-background;
     color: $color-sidebar-foreground;
 
+    font-size: 12px;
+
+    /* HEADERS ============================================================= */
+    & h1 {
+        @extend  %panel-header;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+
+    & h2 {
+        @extend %panel-header;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    & h3 {
+        @extend %panel-header;
+        font-weight: normal;
+    }
+
+    /* SECTIONS ============================================================ */
     & header {
+        @extend %panel-child;
         display: flex;
-        padding-left: 16px;
-        padding-right: 10px;
-
-        $header-line-height: 35px;
-        line-height: $header-line-height;
-
-        & h1 {
-            margin: 0;
-
-            font-size: 12px;
-            font-weight: normal;
-            text-transform: uppercase;
-        }
+        line-height: 35px;
 
         & .actions {
-            flex: 1;
-
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
+            flex: 1;
 
             & > div {
-                height: $header-line-height;
+                height: inherit;
                 width: 16px;
 
                 background-color: $color-toolbar-foreground-inactive;
@@ -58,36 +77,41 @@ body {
         }
     }
 
+    $section-line-height: 22px;
+
     & .section-header {
+        @extend %panel-child;
         display: flex;
-
-        $section-header-line-height: 22px;
-        line-height: $section-header-line-height;
-
+        padding-left: 0;
+        line-height: $section-line-height;
         background-color: $color-toolbar-background;
+    }
 
-        & h2 {
-            margin: 0;
+    & .section-indented {
+        @extend %panel-child;
+        line-height: $section-line-height;
 
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
+        & .header {
+            display: flex;
         }
 
-        & .chevron {
-            width: 16px;
-            background-color: $color-toolbar-foreground-active;
-            cursor: pointer;
+        &.collapsed { display: none; }
+    }
 
-            &.collapsed {
-                -webkit-mask: url("../../../resources/ic_expand_more_18px.svg") no-repeat 50% 50%;
-                -webkit-mask-size: 16px;
-            }
+    /* MSC ================================================================= */
+    & .chevron {
+        width: 16px;
+        background-color: $color-toolbar-foreground-active;
+        cursor: pointer;
 
-            &.expanded {
-                -webkit-mask: url("../../../resources/ic_expand_less_18px.svg") no-repeat 50% 50%;
-                -webkit-mask-size: 16px;
-            }
+        &.collapsed {
+            -webkit-mask: url("../../../resources/ic_expand_more_18px.svg") no-repeat 50% 50%;
+            -webkit-mask-size: 16px;
+        }
+
+        &.expanded {
+            -webkit-mask: url("../../../resources/ic_expand_less_18px.svg") no-repeat 50% 50%;
+            -webkit-mask-size: 16px;
         }
     }
 }

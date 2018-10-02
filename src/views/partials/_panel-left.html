@@ -10,7 +10,7 @@
         <div class="chevron" data-bind="css: {expanded: isExpanded, collapsed: !isExpanded()}, click: handleChevronClick"></div>
         <h2 data-bind="text: displayName"></h2>
     </div>
-    <div class="indented-section" data-bind=""></div>
+    <div data-bind="template: {name: 'file-tree-section', data: $data}"></div>
     <!-- /ko -->
 </div>
 <partial src="_file-tree.html"></partial>
