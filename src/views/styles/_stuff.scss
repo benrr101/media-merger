@@ -3,12 +3,16 @@
  */
 @import "_colors.scss";
 
-/* ACTION ICONS ============================================================ */
-.action-item {
-
+@mixin webkit-mask($path) {
+  -webkit-mask: url($path) no-repeat 50% 50%;
+  -webkit-mask-size: 16px;
 }
 
+/* ACTION ICONS ============================================================ */
 .add-folder {
-  -webkit-mask: url("../../../resources/ic_create_new_folder_24px.svg") no-repeat 50% 50%;
-  -webkit-mask-size: 16px;
+  @include webkit-mask("../../../resources/ic_create_new_folder_24px.svg");
+}
+
+.close-folder {
+  @include webkit-mask("../../../resources/ic_close_18px.svg");
 }

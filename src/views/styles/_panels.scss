@@ -6,6 +6,12 @@
 /* CONSTANTS =============================================================== */
 $toolbar-width: 50px;
 
+@mixin collapsible {
+    &.collapsed {
+        display: none;
+    }
+}
+
 /* PANELS ================================================================== */
 body {
     display: flex;
@@ -17,14 +23,18 @@ body {
     color: $color-content-foreground;
 }
 
+$panel-padding-left: 16px;
 %panel-child {
-    padding-left: 16px;
+    padding-left: $panel-padding-left;
     padding-right: 10px;
 }
 
 %panel-header {
     margin: 0;
+    overflow:hidden;
+
     font-size: inherit;
+    text-overflow: ellipsis;
 }
 
 #panel-left, #panel-right {
@@ -34,6 +44,12 @@ body {
     font-size: 12px;
 
     /* HEADERS ============================================================= */
+    & header {
+        @extend %panel-child;
+        display: flex;
+        line-height: 35px;
+    }
+
     & h1 {
         @extend  %panel-header;
         font-weight: normal;
@@ -52,31 +68,6 @@ body {
     }
 
     /* SECTIONS ============================================================ */
-    & header {
-        @extend %panel-child;
-        display: flex;
-        line-height: 35px;
-
-        & .actions {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            flex: 1;
-
-            & > div {
-                height: inherit;
-                width: 16px;
-
-                background-color: $color-toolbar-foreground-inactive;
-
-                &:hover {
-                    background-color: $color-toolbar-foreground-active;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-
     $section-line-height: 22px;
 
     & .section-header {
@@ -87,22 +78,53 @@ body {
         background-color: $color-toolbar-background;
     }
 
-    & .section-indented {
+    & .section {
         @extend %panel-child;
+        @include collapsible;
+
         line-height: $section-line-height;
 
         & .header {
             display: flex;
         }
+    }
 
-        &.collapsed { display: none; }
+    & .section-indented {
+        @include collapsible;
+
+        & .section-indented {
+            padding-left: $panel-padding-left;
+        }
     }
 
     /* MSC ================================================================= */
+    & .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-grow: 1;
+        flex-shrink: 0;
+
+        & > div {
+            width: 16px;
+            background-color: $color-toolbar-foreground-inactive;
+
+            &:hover {
+                background-color: $color-toolbar-foreground-active;
+            }
+        }
+    }
+
     & .chevron {
         width: 16px;
-        background-color: $color-toolbar-foreground-active;
+        background-color: $color-toolbar-foreground-inactive;
         cursor: pointer;
+        flex-grow: 0;
+        flex-shrink: 0;
+
+        &:hover {
+            background-color: $color-toolbar-foreground-active;
+        }
 
         &.collapsed {
             -webkit-mask: url("../../../resources/ic_expand_more_18px.svg") no-repeat 50% 50%;

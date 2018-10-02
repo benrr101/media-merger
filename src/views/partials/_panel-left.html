@@ -2,15 +2,18 @@
     <header>
         <h1>File List</h1>
         <div class="actions">
-            <div class="action-item add-folder" data-bind="click: handleAddFolder"></div>
+            <div class="action-item add-folder" data-bind="click: handleClickAddFolder"></div>
         </div>
     </header>
     <!-- ko foreach: fileTrees -->
     <div class="section-header">
         <div class="chevron" data-bind="css: {expanded: isExpanded, collapsed: !isExpanded()}, click: handleChevronClick"></div>
         <h2 data-bind="text: displayName"></h2>
+        <div class="actions">
+            <div class="close-folder" data-bind="click: $parent.handleClickCloseFolder($data)"></div>
+        </div>
     </div>
-    <div data-bind="template: {name: 'file-tree-section', data: $data}"></div>
+    <div class="section" data-bind="template: {name: 'file-tree-section', data: $data}, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
     <!-- /ko -->
 </div>
 <partial src="_file-tree.html"></partial>
