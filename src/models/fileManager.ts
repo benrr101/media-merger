@@ -6,11 +6,20 @@ const readdir = util.promisify(fs.readdir);
 const stat = util.promisify(fs.stat);
 
 export interface IFileManager {
+    getFileInformation(filePath: string): Promise<FileInformation>;
     getFolderContents(folderPath: string): Promise<FolderContents>;
 }
 
 export class FileManager implements IFileManager {
     // METHODS /////////////////////////////////////////////////////////////
+    public async getFileInformation(filePath: string): Promise<FileInformation> {
+        // Read the items
+
+        return <FileInformation> {
+            name: path.basename(filePath)
+        };
+    }
+
     public async getFolderContents(folderPath: string): Promise<FolderContents> {
         // Read the items in the directory
         const fileList = await readdir(folderPath);
@@ -32,6 +41,10 @@ export class FileManager implements IFileManager {
 
         return result;
     }
+}
+
+export class FileInformation {
+    public name: string;
 }
 
 export class FolderContents {

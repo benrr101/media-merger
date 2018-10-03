@@ -1,0 +1,43 @@
+/*
+ * STUFF ===================================================================
+ */
+@import "_colors.scss";
+
+@mixin webkit-mask($path) {
+  -webkit-mask: url($path) no-repeat 50% 50%;
+  -webkit-mask-size: 16px;
+}
+
+%panel-icon {
+  width: 16px;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  background-color: $color-toolbar-foreground-inactive;
+
+  &:hover {
+    background-color: $color-toolbar-foreground-active;
+  }
+}
+
+  /* FILE ICONS ============================================================== */
+  .file-icon {
+    @extend %panel-icon;
+    @include webkit-mask("../../../resources/ic_description_24px.svg");
+  }
+
+  .folder-icon {
+    @extend %panel-icon;
+    @include webkit-mask("../../../resources/ic_folder_18px.svg");
+  }
+
+  /* ACTION ICONS ============================================================ */
+  .add-folder {
+    @extend %panel-icon;
+    @include webkit-mask("../../../resources/ic_create_new_folder_24px.svg");
+  }
+
+  .close-folder {
+    @extend %panel-icon;
+    @include webkit-mask("../../../resources/ic_close_18px.svg");
+  }

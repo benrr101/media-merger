@@ -3,9 +3,16 @@
         <!-- ko foreach: folders -->
         <div class="header">
             <div class="chevron" data-bind="click: handleChevronClick, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
+            <div class="folder-icon"></div>
             <h3 data-bind="text: displayName"></h3>
         </div>
         <!-- ko template: {name: 'file-tree-section', data: $data} --><!-- /ko -->
+        <!-- /ko -->
+        <!-- ko foreach: files -->
+        <div class="header">
+            <div class="file-icon"></div>
+            <h4 data-bind="text: displayName"></h4>
+        </div>
         <!-- /ko -->
     </div>
 </script>
