@@ -75,7 +75,8 @@ $panel-padding-left: 16px;
         display: flex;
         padding-left: 0;
         line-height: $section-line-height;
-        background-color: $color-toolbar-background;
+
+        background-color: $color-sidebar-section-header-background;
     }
 
     & .section {
@@ -86,6 +87,14 @@ $panel-padding-left: 16px;
 
         & .header {
             display: flex;
+
+            &:hover {
+                background-color: $color-sidebar-section-header-background;
+            }
+
+            &.selected {
+                background-color: $color-sidebar-background-selected;
+            }
         }
     }
 

@@ -9,7 +9,7 @@
         <!-- ko template: {name: 'file-tree-section', data: $data} --><!-- /ko -->
         <!-- /ko -->
         <!-- ko foreach: files -->
-        <div class="header">
+        <div class="header" data-bind="click: handleClick, css: {selected: isSelected}">
             <div class="file-icon"></div>
             <h4 data-bind="text: displayName"></h4>
         </div>

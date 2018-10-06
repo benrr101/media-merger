@@ -33,7 +33,7 @@ export default class FileBrowserViewModel {
             }
 
             // Generate the root of the tree and kick off recursive initialization
-            const folderViewModel = new FileTreeFolderViewModel(this._fileManager, folderToAdd);
+            const folderViewModel = new FileTreeFolderViewModel(this._fileManager, undefined, folderToAdd);
             this.fileTrees.push(folderViewModel);
             folderViewModel.init();
         } catch (e) {
