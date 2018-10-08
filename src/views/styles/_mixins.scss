@@ -1,0 +1,10 @@
+@mixin collapsible {
+  &.collapsed {
+    display: none;
+  }
+}
+
+@mixin webkit-mask($path, $size) {
+  -webkit-mask: url($path) no-repeat 50% 50%;
+  -webkit-mask-size: $size;
+}

@@ -10,6 +10,7 @@ export default class FileTreeFileViewModel {
 
     // OBSERVABLES /////////////////////////////////////////////////////////
     public displayName: KnockoutObservable<string>;
+    public filePath: KnockoutObservable<string>;
     public isSelected: KnockoutObservable<boolean>;
 
     // CONSTRUCTORS ////////////////////////////////////////////////////////
@@ -19,6 +20,7 @@ export default class FileTreeFileViewModel {
         this._parent = parent;
 
         this.displayName = ko.observable<string>("Loading...");
+        this.filePath = ko.observable<string>(this._filePath);
         this.isSelected = ko.observable<boolean>(false);
     }
 

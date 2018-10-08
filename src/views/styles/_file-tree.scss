@@ -1,0 +1,112 @@
+@import "colors";
+@import "mixins";
+
+/* FILE TREE =============================================================== */
+$tree-indent-width: 16px;
+
+.file-tree {
+  /* SECTIONS -------------------------------------------------------------- */
+  & .section-header {
+    display: flex;
+    line-height: 22px;
+
+    background-color: $color-sidebar-section-header-background;
+  }
+
+  & .section {
+    @include collapsible;
+
+    & .section {
+      padding-left: $tree-indent-width;
+    }
+  }
+
+  & .section-line-item {
+    display: flex;
+    line-height: 22px;
+
+    &.indented {
+      padding-left: $tree-indent-width;
+    }
+
+    &:hover {
+      background-color: $color-toolbar-background;
+    }
+
+    &.selected {
+      background-color: $color-sidebar-background-selected;
+    }
+  }
+
+  /* SECTION COMPONENTS ---------------------------------------------------- */
+  & .actions {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+
+    /* ACTION ITEMS -------------------------------------------------------- */
+    %action-item {
+      width: $tree-indent-width;
+      background-color: $color-toolbar-foreground-inactive;
+    }
+
+    & .chevron.collapsed {
+      @extend %action-item;
+      @include webkit-mask("../../../resources/ic_expand_more_18px.svg", $tree-indent-width);
+    }
+
+    & .chevron.expanded {
+      @extend %action-item;
+      @include webkit-mask("../../../resources/ic_expand_less_18px.svg", $tree-indent-width);
+    }
+
+    .add-folder {
+      @extend %action-item;
+      @include webkit-mask("../../../resources/ic_create_new_folder_24px.svg", $tree-indent-width);
+    }
+
+    .close-folder {
+      @extend %action-item;
+      @include webkit-mask("../../../resources/ic_close_18px.svg", $tree-indent-width);
+    }
+
+    .file-icon {
+      @extend %action-item;
+      @include webkit-mask("../../../resources/ic_description_24px.svg", $tree-indent-width);
+    }
+
+    .folder-icon {
+      @extend %action-item;
+      @include webkit-mask("../../../resources/ic_folder_18px.svg", $tree-indent-width);
+    }
+  }
+
+  %panel-header {
+    margin: 0;
+    flex-grow: 1;
+    overflow: hidden;
+
+    font-size: inherit;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & h1 {
+    @extend %panel-header;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  & h2 {
+    @extend %panel-header;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  & h3, & h4 {
+    @extend %panel-header;
+    font-weight: normal;
+  }
+}

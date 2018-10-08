@@ -17,9 +17,11 @@ body {
 .gutter.gutter-horizontal {
     margin-left: -5px;
     cursor: w-resize;
+    z-index: 900000;
 }
 .gutter.gutter-vertical {
     cursor: n-resize;
+    z-index: 900000;
 }
 .split.split-horizontal, .gutter.gutter-horizontal {
     height: 100%;

@@ -6,35 +6,10 @@
 /* CONSTANTS =============================================================== */
 $toolbar-width: 50px;
 
-@mixin collapsible {
-    &.collapsed {
-        display: none;
-    }
-}
-
 /* PANELS ================================================================== */
-body {
-    display: flex;
-    flex-direction: row;
-}
-
 #panel-center {
     background-color: $color-content-background;
     color: $color-content-foreground;
-}
-
-$panel-padding-left: 16px;
-%panel-child {
-    padding-left: $panel-padding-left;
-    padding-right: 10px;
-}
-
-%panel-header {
-    margin: 0;
-    overflow:hidden;
-
-    font-size: inherit;
-    text-overflow: ellipsis;
 }
 
 #panel-left, #panel-right {
@@ -45,104 +20,10 @@ $panel-padding-left: 16px;
 
     /* HEADERS ============================================================= */
     & header {
-        @extend %panel-child;
         display: flex;
+        margin-left: 20px;
+        margin-right: 10px;
         line-height: 35px;
-    }
-
-    & h1 {
-        @extend  %panel-header;
-        font-weight: normal;
-        text-transform: uppercase;
-    }
-
-    & h2 {
-        @extend %panel-header;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    & h3, & h4 {
-        @extend %panel-header;
-        font-weight: normal;
-    }
-
-    /* SECTIONS ============================================================ */
-    $section-line-height: 22px;
-
-    & .section-header {
-        @extend %panel-child;
-        display: flex;
-        padding-left: 0;
-        line-height: $section-line-height;
-
-        background-color: $color-sidebar-section-header-background;
-    }
-
-    & .section {
-        @extend %panel-child;
-        @include collapsible;
-
-        line-height: $section-line-height;
-
-        & .header {
-            display: flex;
-
-            &:hover {
-                background-color: $color-sidebar-section-header-background;
-            }
-
-            &.selected {
-                background-color: $color-sidebar-background-selected;
-            }
-        }
-    }
-
-    & .section-indented {
-        @include collapsible;
-
-        & .section-indented {
-            padding-left: $panel-padding-left;
-        }
-    }
-
-    /* MSC ================================================================= */
-    & .actions {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        flex-grow: 1;
-        flex-shrink: 0;
-
-        & > div {
-            background-color: $color-toolbar-foreground-inactive;
-
-            &:hover {
-                background-color: $color-toolbar-foreground-active;
-            }
-        }
-    }
-
-    & .chevron {
-        width: 16px;
-        background-color: $color-toolbar-foreground-inactive;
-        cursor: pointer;
-        flex-grow: 0;
-        flex-shrink: 0;
-
-        &:hover {
-            background-color: $color-toolbar-foreground-active;
-        }
-
-        &.collapsed {
-            -webkit-mask: url("../../../resources/ic_expand_more_18px.svg") no-repeat 50% 50%;
-            -webkit-mask-size: 16px;
-        }
-
-        &.expanded {
-            -webkit-mask: url("../../../resources/ic_expand_less_18px.svg") no-repeat 50% 50%;
-            -webkit-mask-size: 16px;
-        }
     }
 }
 

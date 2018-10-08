@@ -1,16 +1,20 @@
 <script type="text/html" id="file-tree-section">
-    <div class="section-indented" data-bind="css: {expanded: isExpanded, collapsed: !isExpanded()}">
+    <div class="section" data-bind="css: {collapsed: !isExpanded()}">
         <!-- ko foreach: folders -->
-        <div class="header">
-            <div class="chevron" data-bind="click: handleChevronClick, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
-            <div class="folder-icon"></div>
+        <div class="section-line-item">
+            <div class="actions">
+                <div class="chevron" data-bind="click: handleChevronClick, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
+                <div class="folder-icon"></div>
+            </div>
             <h3 data-bind="text: displayName"></h3>
         </div>
         <!-- ko template: {name: 'file-tree-section', data: $data} --><!-- /ko -->
         <!-- /ko -->
         <!-- ko foreach: files -->
-        <div class="header" data-bind="click: handleClick, css: {selected: isSelected}">
-            <div class="file-icon"></div>
+        <div class="section-line-item indented" data-bind="click: handleClick, css: {selected: isSelected}, attr: {title: $data.folderPath}">
+            <div class="actions">
+                <div class="file-icon"></div>
+            </div>
             <h4 data-bind="text: displayName"></h4>
         </div>
         <!-- /ko -->
