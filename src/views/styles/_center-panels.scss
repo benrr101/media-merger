@@ -1,0 +1,34 @@
+@import "colors";
+@import "mixins";
+
+/* CENTER PANELS =========================================================== */
+#panel-center {
+  background-color: $color-content-background;
+  color: $color-content-foreground;
+
+  font-size: 12px;
+
+  & header {
+    display: flex;
+    padding-left: 20px;
+    line-height: 22px;
+
+    background-color: $color-sidebar-section-header-background;
+  }
+
+  %panel-header {
+    margin: 0;
+    flex-grow: 1;
+    overflow: hidden;
+
+    font-size: inherit;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & h1 {
+    @extend %panel-header;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

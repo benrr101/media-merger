@@ -7,18 +7,12 @@
 $toolbar-width: 50px;
 
 /* PANELS ================================================================== */
-#panel-center {
-    background-color: $color-content-background;
-    color: $color-content-foreground;
-}
-
 #panel-left, #panel-right {
     background-color: $color-sidebar-background;
     color: $color-sidebar-foreground;
 
     font-size: 12px;
 
-    /* HEADERS ============================================================= */
     & header {
         display: flex;
         margin-left: 20px;

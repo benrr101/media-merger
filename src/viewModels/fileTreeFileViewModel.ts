@@ -1,12 +1,12 @@
 import * as ko from "knockout";
-import FileTreeFolderViewModel from "./fileTreeFolderViewModel";
+
 import {IFileManager} from "../models/fileManager";
 
-export default class FileTreeFileViewModel {
+export class FileTreeFileViewModel {
     // MEMBER FIELDS ///////////////////////////////////////////////////////
+    private readonly _callbacks: IFileTreeFileCallbacks;
     private readonly _fileManager: IFileManager;
     private readonly _filePath: string;
-    private readonly _parent: FileTreeFolderViewModel;
 
     // OBSERVABLES /////////////////////////////////////////////////////////
     public displayName: KnockoutObservable<string>;
@@ -14,10 +14,10 @@ export default class FileTreeFileViewModel {
     public isSelected: KnockoutObservable<boolean>;
 
     // CONSTRUCTORS ////////////////////////////////////////////////////////
-    public constructor(fileManager: IFileManager, parent: FileTreeFolderViewModel, filePath: string) {
+    public constructor(fileManager: IFileManager, callbacks: IFileTreeFileCallbacks, filePath: string) {
+        this._callbacks = callbacks;
         this._fileManager = fileManager;
         this._filePath = filePath;
-        this._parent = parent;
 
         this.displayName = ko.observable<string>("Loading...");
         this.filePath = ko.observable<string>(this._filePath);
@@ -33,6 +33,12 @@ export default class FileTreeFileViewModel {
     public handleClick = () => {
         // Mark the file as selected and bubble the request up the stack
         this.isSelected(true);
+
+        this._callbacks.handleFileSelected(this);
     }
+}
+
+export interface IFileTreeFileCallbacks {
+    handleFileSelected: (file: FileTreeFileViewModel) => void;
 }
 

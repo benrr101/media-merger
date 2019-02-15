@@ -1,8 +1,9 @@
 import * as ko from "knockout";
 
-import FileBrowserViewModel from "./fileBrowserViewModel";
+import {IFileBrowserCallbacks, FileBrowserViewModel} from "./fileBrowserViewModel";
 import {ElectronApiManager, IElectronApiManager} from "../models/electronApiManager";
 import {FileManager, IFileManager} from "../models/fileManager";
+import {FileTreeFileViewModel} from "./fileTreeFileViewModel";
 
 export default class RootViewModel {
     // MODELS //////////////////////////////////////////////////////////////
@@ -10,6 +11,7 @@ export default class RootViewModel {
     private readonly _fileManager: IFileManager;
 
     // CHILD VIEW MODELS ///////////////////////////////////////////////////
+    public activeFile: KnockoutObservable<FileTreeFileViewModel>;
     public fileBrowserViewModel: KnockoutObservable<FileBrowserViewModel>;
 
     // OBSERVABLES /////////////////////////////////////////////////////////
@@ -22,7 +24,12 @@ export default class RootViewModel {
         this._fileManager = fileManager;
 
         // Child viewmodels
-        const fileBrowserVM = new FileBrowserViewModel(this._electronApi, this._fileManager);
+        this.activeFile = ko.observable<FileTreeFileViewModel>();
+
+        const browserCallbacks = <IFileBrowserCallbacks> {
+            setSelectedFile: this.setSelectedFile
+        };
+        const fileBrowserVM = new FileBrowserViewModel(this._electronApi, this._fileManager, browserCallbacks);
         this.fileBrowserViewModel = ko.observable<FileBrowserViewModel>(fileBrowserVM);
 
         // Observables
@@ -31,5 +38,11 @@ export default class RootViewModel {
 
     public static createDefault(): RootViewModel {
         return new RootViewModel(ElectronApiManager.createDefault(), new FileManager());
+    }
+
+    // CALLBACKS ///////////////////////////////////////////////////////////
+    private setSelectedFile = (file: FileTreeFileViewModel): void => {
+        console.log(this);
+        this.activeFile(file);
     }
 }

@@ -1,12 +1,11 @@
 import * as ko from "knockout";
 
 import {IFileManager} from "../models/fileManager";
-import FileTreeFileViewModel from "./fileTreeFileViewModel";
+import {IFileTreeFileCallbacks, FileTreeFileViewModel} from "./fileTreeFileViewModel";
 
-// import FileTreeFileViewModel from "./fileTreeFileViewModel";
-
-export default class FileTreeFolderViewModel {
+export class FileTreeFolderViewModel {
     // MEMBER FIELDS ///////////////////////////////////////////////////////
+    private readonly _callbacks: IFileTreeFolderCallbacks;
     private readonly _fileManager: IFileManager;
     private readonly _folderPath: string;
 
@@ -20,8 +19,9 @@ export default class FileTreeFolderViewModel {
     public isSelected: KnockoutObservable<boolean>;
 
     // CONSTRUCTORS ////////////////////////////////////////////////////////
-    public constructor(fileManager: IFileManager, parent: FileTreeFolderViewModel, folderPath: string) {
+    public constructor(fileManager: IFileManager, callbacks: IFileTreeFolderCallbacks, folderPath: string) {
         // Store the most basic data
+        this._callbacks = callbacks;
         this._fileManager = fileManager;
         this._folderPath = folderPath;
 
@@ -39,14 +39,18 @@ export default class FileTreeFolderViewModel {
 
         // Create new VMs for the folders in this folder
         const folders = folderContents.folders.map((folder) => {
-            return new FileTreeFolderViewModel(this._fileManager, this, folder);
+            return new FileTreeFolderViewModel(this._fileManager, this._callbacks, folder);
         });
         const folderPromises = folders.map((folder) => folder.init());
         this.folders(folders);
 
         // Create new VMs for the files in this folder
         const files = folderContents.files.map((file) => {
-            return new FileTreeFileViewModel(this._fileManager, this, file);
+            const callbacks = <IFileTreeFileCallbacks> {
+                handleFileSelected: this._callbacks.setSelectedFile
+            };
+
+            return new FileTreeFileViewModel(this._fileManager, callbacks, file);
         });
         const filePromises = files.map((file) => file.init());
         this.files(files);
@@ -61,4 +65,8 @@ export default class FileTreeFolderViewModel {
     public handleChevronClick = () => {
         this.isExpanded(!this.isExpanded());
     }
+}
+
+export interface IFileTreeFolderCallbacks {
+    setSelectedFile(file: FileTreeFileViewModel): void;
 }

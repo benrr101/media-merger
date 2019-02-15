@@ -1,22 +1,22 @@
 import * as ko from "knockout";
 
-import FileTreeFolderViewModel from "./fileTreeFolderViewModel";
+import {FileTreeFileViewModel} from "./fileTreeFileViewModel";
+import {IFileTreeFolderCallbacks, FileTreeFolderViewModel} from "./fileTreeFolderViewModel";
 import {IFileManager} from "../models/fileManager";
 import {IElectronApiManager} from "../models/electronApiManager";
 
-
-export default class FileBrowserViewModel {
+export class FileBrowserViewModel {
     // MODELS //////////////////////////////////////////////////////////////
+    private readonly _callbacks: IFileBrowserCallbacks;
     private readonly _fileManager: IFileManager;
     private readonly _electronApi: IElectronApiManager;
 
     // CHILD VIEW MODELS ///////////////////////////////////////////////////
     public fileTrees: KnockoutObservableArray<FileTreeFolderViewModel>;
 
-    // OBSERVABLES /////////////////////////////////////////////////////////
-
     // CONSTRUCTORS ////////////////////////////////////////////////////////
-    public constructor(electronApi: IElectronApiManager, fileManager: IFileManager) {
+    public constructor(electronApi: IElectronApiManager, fileManager: IFileManager, callbacks: IFileBrowserCallbacks) {
+        this._callbacks = callbacks;
         this._electronApi = electronApi;
         this._fileManager = fileManager;
 
@@ -33,7 +33,10 @@ export default class FileBrowserViewModel {
             }
 
             // Generate the root of the tree and kick off recursive initialization
-            const folderViewModel = new FileTreeFolderViewModel(this._fileManager, undefined, folderToAdd);
+            const callbacks = <IFileTreeFolderCallbacks> {
+                setSelectedFile: this.handleFileSelected
+            };
+            const folderViewModel = new FileTreeFolderViewModel(this._fileManager, callbacks, folderToAdd);
             this.fileTrees.push(folderViewModel);
             folderViewModel.init();
         } catch (e) {
@@ -53,4 +56,17 @@ export default class FileBrowserViewModel {
             console.error(e);
         }
     }
+
+    // CALLBACKS ///////////////////////////////////////////////////////////
+    public handleFileSelected = (file: FileTreeFileViewModel) => {
+        // Reset all the files under here
+        // TODO: Reset all files underneath
+
+        // Set the active file in the root view model
+        this._callbacks.setSelectedFile(file);
+    }
+}
+
+export interface IFileBrowserCallbacks {
+    setSelectedFile(file: FileTreeFileViewModel): void;
 }
