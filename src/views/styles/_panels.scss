@@ -13,11 +13,81 @@ $toolbar-width: 50px;
 
     font-size: 12px;
 
+    /* HEADERS ------------------------------------------------------------- */
+
     & header {
         display: flex;
         margin-left: 20px;
         margin-right: 10px;
         line-height: 35px;
+    }
+
+    %panel-header {
+        margin: 0;
+        flex-grow: 1;
+        overflow: hidden;
+
+        font-size: inherit;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    & h1 {
+        @extend %panel-header;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+
+    & h2 {
+        @extend %panel-header;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    & h3 {
+        @extend %panel-header;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    & h4 {
+        @extend %panel-header;
+        font-weight: normal;
+    }
+
+    /* ACTIONS ------------------------------------------------------------- */
+    & .actions {
+        display: flex;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding-left: 2px;
+        padding-right: 2px;
+
+        & div {
+            width: 16px;
+            background-color: $color-toolbar-foreground-inactive;
+            -webkit-mask-size: 16px;
+        }
+    }
+
+    /* FORM ELEMENTS ------------------------------------------------------- */
+    & div.text-input-wrapper {
+        display: flex;
+        margin-left: 10px;
+        margin-right: 10px;
+        border: 1px solid;
+
+        background-color: $color-content-background;
+
+        & input[type="text"] {
+            flex-grow: 1;
+            padding: 4px;
+            border: 0;
+
+            background-color: inherit;
+
+            color: $color-sidebar-foreground;
+        }
     }
 }
 

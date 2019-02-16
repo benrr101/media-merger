@@ -4,7 +4,6 @@
   }
 }
 
-@mixin webkit-mask($path, $size) {
+@mixin webkit-mask($path) {
   -webkit-mask: url($path) no-repeat 50% 50%;
-  -webkit-mask-size: $size;
 }

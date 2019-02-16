@@ -1,0 +1,34 @@
+@import "mixins";
+
+/* ICONS =================================================================== */
+.icon-chevron.collapsed {
+  @include webkit-mask("../../../resources/ic_expand_more_18px.svg");
+}
+
+.icon-chevron.expanded {
+  @include webkit-mask("../../../resources/ic_expand_less_18px.svg");
+}
+
+.icon-file {
+  @include webkit-mask("../../../resources/ic_description_24px.svg");
+}
+
+.icon-folder {
+  @include webkit-mask("../../../resources/ic_folder_18px.svg");
+}
+
+.icon-folder-add {
+  @include webkit-mask("../../../resources/ic_create_new_folder_24px.svg");
+}
+
+.icon-folder-close {
+  @include webkit-mask("../../../resources/ic_close_18px.svg");
+}
+
+.icon-search {
+  @include webkit-mask("../../../resources/ic_search_24px.svg");
+}
+
+.icon-x {
+  @include webkit-mask("../../../resources/ic_clear_24px.svg");
+}

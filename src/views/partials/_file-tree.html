@@ -3,8 +3,8 @@
         <!-- ko foreach: folders -->
         <div class="section-line-item">
             <div class="actions">
-                <div class="chevron" data-bind="click: handleChevronClick, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
-                <div class="folder-icon"></div>
+                <div class="icon-chevron" data-bind="click: handleChevronClick, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
+                <div class="icon-folder"></div>
             </div>
             <h3 data-bind="text: displayName"></h3>
         </div>
@@ -13,7 +13,7 @@
         <!-- ko foreach: files -->
         <div class="section-line-item indented" data-bind="click: handleClick, css: {selected: isSelected}, attr: {title: $data.folderPath}">
             <div class="actions">
-                <div class="file-icon"></div>
+                <div class="icon-file"></div>
             </div>
             <h4 data-bind="text: displayName"></h4>
         </div>

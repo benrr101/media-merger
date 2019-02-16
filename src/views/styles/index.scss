@@ -1,4 +1,6 @@
 
+@import '_icons.scss';
+
 @import '_center-panels.scss';
 @import '_split.scss';
 @import '_panels.scss';
@@ -12,3 +14,4 @@ body {
   display: flex;
   flex-direction: row;
 }
+
