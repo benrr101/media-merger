@@ -42,7 +42,6 @@ export default class RootViewModel {
 
     // CALLBACKS ///////////////////////////////////////////////////////////
     private setSelectedFile = (file: FileTreeFileViewModel): void => {
-        console.log(this);
         this.activeFile(file);
     }
 }

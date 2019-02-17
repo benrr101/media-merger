@@ -6,6 +6,7 @@
     "new-parens": true,
     "no-arg": true,
     "no-angle-bracket-type-assertion": false,
+    "no-bitwise": false,
     "no-conditional-assignment": true,
     "no-consecutive-blank-lines": false,
     "no-console": false,

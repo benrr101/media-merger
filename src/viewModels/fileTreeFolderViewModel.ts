@@ -5,7 +5,8 @@ import {IFileTreeFileCallbacks, FileTreeFileViewModel} from "./fileTreeFileViewM
 
 export class FileTreeFolderViewModel {
     // MEMBER FIELDS ///////////////////////////////////////////////////////
-    private readonly _callbacks: IFileTreeFolderCallbacks;
+    private readonly _browserCallbacks: IFileTreeFolderBrowserCallbacks;
+    private readonly _folderCallbacks: IFileTreeFolderFolderCallbacks;
     private readonly _fileManager: IFileManager;
     private readonly _folderPath: string;
 
@@ -19,9 +20,15 @@ export class FileTreeFolderViewModel {
     public isSelected: KnockoutObservable<boolean>;
 
     // CONSTRUCTORS ////////////////////////////////////////////////////////
-    public constructor(fileManager: IFileManager, callbacks: IFileTreeFolderCallbacks, folderPath: string) {
+    private constructor(
+        folderPath: string,
+        fileManager: IFileManager,
+        browserCallbacks?: IFileTreeFolderBrowserCallbacks,
+        folderCallbacks?: IFileTreeFolderFolderCallbacks
+    ) {
         // Store the most basic data
-        this._callbacks = callbacks;
+        this._browserCallbacks = browserCallbacks;
+        this._folderCallbacks = folderCallbacks;
         this._fileManager = fileManager;
         this._folderPath = folderPath;
 
@@ -33,24 +40,39 @@ export class FileTreeFolderViewModel {
         this.isSelected = ko.observable<boolean>(false);
     }
 
+    public static CreateRoot(
+        folderPath: string,
+        fileManager: IFileManager,
+        browserCallbacks: IFileTreeFolderBrowserCallbacks
+    ): FileTreeFolderViewModel {
+        return new FileTreeFolderViewModel(folderPath, fileManager, browserCallbacks);
+    }
+
     public init = async (): Promise<void> => {
+        const self = this;
+
         // Get all files and folders for this directory
         const folderContents = await this._fileManager.getFolderContents(this._folderPath);
 
         // Create new VMs for the folders in this folder
+        const folderCallbacks = <IFileTreeFolderFolderCallbacks> {
+            handleFileClick: this.handleFileClick
+        };
         const folders = folderContents.folders.map((folder) => {
-            return new FileTreeFolderViewModel(this._fileManager, this._callbacks, folder);
+            return new FileTreeFolderViewModel(folder, this._fileManager, undefined, folderCallbacks);
         });
         const folderPromises = folders.map((folder) => folder.init());
         this.folders(folders);
 
         // Create new VMs for the files in this folder
         const files = folderContents.files.map((file) => {
-            const callbacks = <IFileTreeFileCallbacks> {
-                handleFileSelected: this._callbacks.setSelectedFile
+            const fileCallbacks = <IFileTreeFileCallbacks> {
+                handleFileClick: (clickedFile: FileTreeFileViewModel) => {
+                    self.handleFileClick(clickedFile, null);
+                }
             };
 
-            return new FileTreeFileViewModel(this._fileManager, callbacks, file);
+            return new FileTreeFileViewModel(this._fileManager, fileCallbacks, file);
         });
         const filePromises = files.map((file) => file.init());
         this.files(files);
@@ -61,12 +83,50 @@ export class FileTreeFolderViewModel {
         this.isExpanded(true);
     }
 
+    // PUBLIC METHODS //////////////////////////////////////////////////////
+    public resetSelected(): void {
+        // Reset the selected status for all folders under this one
+        for (const f of this.folders()) {
+            f.resetSelected();
+        }
+
+        // Reset the selected status for all files in this folder
+        for (const f of this.files()) {
+            f.setSelectedStatus(false);
+        }
+    }
+
     // EVENT HANDLERS //////////////////////////////////////////////////////
     public handleChevronClick = () => {
         this.isExpanded(!this.isExpanded());
     }
+
+    // CALLBACKS ///////////////////////////////////////////////////////////
+    private handleFileClick = (file: FileTreeFileViewModel, folder: FileTreeFolderViewModel) => {
+        // Reset the selected status for all folders under this one
+        for (const f of this.folders()) {
+            if (f === folder) { continue; }
+            f.resetSelected();
+        }
+
+        // Reset all the files inside this folder
+        for (const f of this.files()) {
+            f.setSelectedStatus(f === file);
+        }
+
+        // Pass the call up the chain
+        if (this._browserCallbacks) {
+            this._browserCallbacks.handleFileClick(file, this);
+        } else {
+            this._folderCallbacks.handleFileClick(file, this);
+        }
+    }
 }
 
-export interface IFileTreeFolderCallbacks {
-    setSelectedFile(file: FileTreeFileViewModel): void;
+export interface IFileTreeFolderBrowserCallbacks {
+    handleFileClick(file: FileTreeFileViewModel, folder: FileTreeFolderViewModel): void;
+}
+
+export interface IFileTreeFolderFolderCallbacks {
+    handleFileClick(file: FileTreeFileViewModel, folder: FileTreeFolderViewModel): void;
 }

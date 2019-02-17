@@ -1,7 +1,7 @@
 import * as ko from "knockout";
 
 import {FileTreeFileViewModel} from "./fileTreeFileViewModel";
-import {IFileTreeFolderCallbacks, FileTreeFolderViewModel} from "./fileTreeFolderViewModel";
+import {FileTreeFolderViewModel, IFileTreeFolderBrowserCallbacks} from "./fileTreeFolderViewModel";
 import {IFileManager} from "../models/fileManager";
 import {IElectronApiManager} from "../models/electronApiManager";
 
@@ -33,10 +33,10 @@ export class FileBrowserViewModel {
             }
 
             // Generate the root of the tree and kick off recursive initialization
-            const callbacks = <IFileTreeFolderCallbacks> {
-                setSelectedFile: this.handleFileSelected
+            const callbacks = <IFileTreeFolderBrowserCallbacks> {
+                handleFileClick: this.handleFileClick
             };
-            const folderViewModel = new FileTreeFolderViewModel(this._fileManager, callbacks, folderToAdd);
+            const folderViewModel = FileTreeFolderViewModel.CreateRoot(folderToAdd, this._fileManager, callbacks);
             this.fileTrees.push(folderViewModel);
             folderViewModel.init();
         } catch (e) {
@@ -58,9 +58,12 @@ export class FileBrowserViewModel {
     }
 
     // CALLBACKS ///////////////////////////////////////////////////////////
-    public handleFileSelected = (file: FileTreeFileViewModel) => {
-        // Reset all the files under here
-        // TODO: Reset all files underneath
+    private handleFileClick = (file: FileTreeFileViewModel, folder: FileTreeFolderViewModel) => {
+        // Tell all the other folder trees to reset the selected file
+        for (const f of this.fileTrees()) {
+            if (f === folder) { continue; }
+            f.resetSelected();
+        }
 
         // Set the active file in the root view model
         this._callbacks.setSelectedFile(file);

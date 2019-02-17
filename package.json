@@ -27,17 +27,17 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@types/jquery": "^3.3.9",
-    "@types/knockout": "^3.4.59",
+    "@types/jquery": "^3.3.29",
+    "@types/knockout": "^3.4.63",
     "@types/uuid": "^3.4.4",
     "gulp": "^3.9.1",
     "gulp-cli": "^2.0.1",
-    "gulp-run-electron": "^3.0.2",
     "gulp-html-partial": "^1.0.1",
-    "gulp-sass": "^4.0.1",
+    "gulp-run-electron": "^3.0.2",
+    "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-typescript": "^5.0.0-alpha.3",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.3"
+    "gulp-typescript": "^5.0.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   }
 }

@@ -29,16 +29,18 @@ export class FileTreeFileViewModel {
         this.displayName(fileInformation.name);
     }
 
+    // PUBLIC METHODS //////////////////////////////////////////////////////
+    public setSelectedStatus = (selected: boolean) => {
+        this.isSelected(selected);
+    }
+
     // EVENT HANDLER ///////////////////////////////////////////////////////
     public handleClick = () => {
-        // Mark the file as selected and bubble the request up the stack
-        this.isSelected(true);
-
-        this._callbacks.handleFileSelected(this);
+        this._callbacks.handleFileClick(this);
     }
 }
 
 export interface IFileTreeFileCallbacks {
-    handleFileSelected: (file: FileTreeFileViewModel) => void;
+    handleFileClick: (file: FileTreeFileViewModel) => void;
 }
 
