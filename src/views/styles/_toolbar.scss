@@ -1,0 +1,55 @@
+/*
+ * TOOLBARS ================================================================
+ */
+@import '_colors.scss';
+
+/* CONSTANTS =============================================================== */
+$main-toolbar-width: 50px;
+$sub-toolbar-width: 25px;
+
+%toolbar {
+  height: 100%;
+
+  background-color: $color-toolbar-background;
+}
+
+%toolbar-item {
+  text-align: center;
+  vertical-align: center;
+
+  background-color: $color-toolbar-foreground-inactive;
+
+  &:hover, &.active {
+    background-color: $color-toolbar-foreground-active;
+  }
+
+  &:hover {
+    cursor: pointer
+  }
+}
+
+.toolbar-main {
+  @extend %toolbar;
+  width: $main-toolbar-width;
+
+  & .item {
+    @extend %toolbar-item;
+    height: $main-toolbar-width;
+    width: $main-toolbar-width;
+
+    -webkit-mask-size: 32px
+  }
+}
+
+.toolbar-sub {
+  @extend %toolbar;
+  width: $sub-toolbar-width;
+
+  & .item {
+    @extend %toolbar-item;
+    height: $sub-toolbar-width;
+    width: $sub-toolbar-width;
+
+    -webkit-mask-size: 16px;
+  }
+}

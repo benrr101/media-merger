@@ -1,6 +1,14 @@
 @import "mixins";
 
 /* ICONS =================================================================== */
+.icon-arrow-left {
+  @include webkit-mask("../../../resources/ic_arrow_back_48px.svg");
+}
+
+.icon-arrow-right {
+  @include webkit-mask("../../../resources/ic_arrow_forward_48px.svg");
+}
+
 .icon-chevron.collapsed {
   @include webkit-mask("../../../resources/ic_expand_more_18px.svg");
 }
@@ -27,6 +35,14 @@
 
 .icon-search {
   @include webkit-mask("../../../resources/ic_search_24px.svg");
+}
+
+.icon-settings {
+  @include webkit-mask("../../../resources/ic_settings_24px.svg");
+}
+
+.icon-tv {
+  @include webkit-mask("../../../resources/ic_tv_24px.svg");
 }
 
 .icon-x {

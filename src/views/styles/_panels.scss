@@ -90,33 +90,3 @@ $toolbar-width: 50px;
         }
     }
 }
-
-/* TOOLBAR ================================================================= */
-#toolbar {
-    height: 100%;
-    width: $toolbar-width;
-
-    background-color: $color-toolbar-background;
-
-    & .item {
-        height: 50px;
-        width: 50px;
-        text-align: center;
-        vertical-align: center;
-
-        background-color: $color-toolbar-foreground-inactive;
-
-        &:hover, &.active {
-            background-color: $color-toolbar-foreground-active;
-        }
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-}
-
-#toolbar-item-settings {
-    -webkit-mask: url("../../../resources/ic_settings_24px.svg") no-repeat 50% 50%;
-    -webkit-mask-size: 22px;
-}
