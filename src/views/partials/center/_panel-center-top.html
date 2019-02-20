@@ -1,11 +1,17 @@
 <section id="panel-center-top" class="split">
+    <header>
+        <!-- ko with: activeFile -->
+        <h1>File Editor: <span data-bind="text: displayName"></span></h1>
+        <!-- /ko -->
+        <!-- ko if: !activeFile() -->
+        <h1>File Editor</h1>
+        <!-- /ko -->
+    </header>
     <div class="inactive-panel" data-bind="visible: !activeFile()">
         <div class="icon icon-arrow-left"></div>
         <p>Select a Video File to Edit from the Left</p>
     </div>
     <div data-bind="with: activeFile">
-        <header>
-            <h1>File Editor: <span data-bind="text: displayName"></span></h1>
-        </header>
+        poop.
     </div>
 </section>
