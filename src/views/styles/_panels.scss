@@ -10,11 +10,23 @@ $toolbar-width: 50px;
 #panel-left, #panel-right {
     background-color: $color-sidebar-background;
     color: $color-sidebar-foreground;
-
     font-size: 12px;
 
-    /* HEADERS ------------------------------------------------------------- */
+    & .inactive-panel {
+        display: flex;
 
+        & button {
+            flex-grow: 1;
+            margin: 15px;
+            border: 0;
+            padding-top: 5px;
+            padding-bottom: 5px;
+
+            background-color: $color-sidebar-background-selected;
+        }
+    }
+
+    /* HEADERS ------------------------------------------------------------- */
     & header {
         display: flex;
         margin-left: 20px;

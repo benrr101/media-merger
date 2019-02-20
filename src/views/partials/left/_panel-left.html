@@ -5,6 +5,12 @@
             <div class="icon-folder-add" data-bind="click: handleClickAddFolder"></div>
         </div>
     </header>
+
+    <div class="inactive-panel" data-bind="visible: fileTrees().length == 0">
+        <button data-bind="click: handleClickAddFolder">Open a Folder</button>
+    </div>
+
+    <partial src="left/_file-tree.html"></partial>
     <!-- ko foreach: fileTrees -->
     <div class="section-header">
         <div class="actions">
@@ -18,4 +24,3 @@
     <div class="section" data-bind="template: {name: 'file-tree-section', data: $data}, css: {expanded: isExpanded, collapsed: !isExpanded()}"></div>
     <!-- /ko -->
 </div>
-<partial src="left/_file-tree.html"></partial>

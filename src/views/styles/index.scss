@@ -7,6 +7,7 @@
 @import '_toolbar.scss';
 @import '_file-tree.scss';
 
+/* HTML RESET */
 html {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "HelveticaNeue-Light", "Ubuntu", "Droid Sans", sans-serif;
 }
@@ -16,3 +17,8 @@ body {
   flex-direction: row;
 }
 
+/* FORM RESET */
+button {
+  color: inherit;
+  font: inherit;
+}
